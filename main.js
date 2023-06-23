@@ -10,9 +10,8 @@ app.use(express.json());
 app.get("/api/info", async (req, res) => {
   const { id } = req.query;
   if (id) {
-    const videoInfo = await ytdl.getInfo(
-      "https://www.youtube.com/watch?v=" + id
-    );
+    const url = "https://www.youtube.com/watch?v=" + id;
+    const videoInfo = await ytdl.getInfo(url);
     res.status(200).send(videoInfo.videoDetails);
   }
 });
@@ -20,9 +19,8 @@ app.get("/api/info", async (req, res) => {
 app.get("/api/video", async (req, res) => {
   const { id } = req.query;
   if (id) {
-    const videoInfo = await ytdl.getInfo(
-      "https://www.youtube.com/watch?v=" + id
-    );
+    const url = "https://www.youtube.com/watch?v=" + id;
+    const videoInfo = await ytdl.getInfo(url);
     const videoReadableStream = ytdl("https://www.youtube.com/watch?v=" + id, {
       filter: "audioandvideo",
     });
@@ -39,10 +37,8 @@ app.get("/api/video", async (req, res) => {
 app.get("/api/audio", async (req, res) => {
   const { id } = req.query;
   if (id) {
-    const videoInfo = await ytdl.getInfo(
-      "https://www.youtube.com/watch?v=" + id
-    );
     const url = "https://www.youtube.com/watch?v=" + id;
+    const videoInfo = await ytdl.getInfo(url);
     const videoReadableStream = await ytdl(url, {
       filter: "audioonly",
     });
