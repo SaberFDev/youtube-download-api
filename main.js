@@ -9,39 +9,53 @@ app.use(express.json());
 
 app.get("/api/info", async (req, res) => {
   const { id } = req.query;
-  const videoInfo = await ytdl.getInfo("https://www.youtube.com/watch?v=" + id);
-  res.send(200, videoInfo.videoDetails);
+  if (id) {
+    const videoInfo = await ytdl.getInfo(
+      "https://www.youtube.com/watch?v=" + id
+    );
+    res.status(200).send(videoInfo.videoDetails);
+  }
 });
 
-app.get("/api/video", (req, res) => {
+app.get("/api/video", async (req, res) => {
   const { id } = req.query;
-  const videoReadableStream = ytdl("https://www.youtube.com/watch?v=" + id, {
-    filter: "audioandvideo",
-  });
-  res.set(
-    "content-disposition",
-    `attachment; filename="${
-      Math.floor(Math.random() * 999).toString() + ".mp4"
-    }"`
-  );
-  videoReadableStream.pipe(res);
+  if (id) {
+    const videoInfo = await ytdl.getInfo(
+      "https://www.youtube.com/watch?v=" + id
+    );
+    const videoReadableStream = ytdl("https://www.youtube.com/watch?v=" + id, {
+      filter: "audioandvideo",
+    });
+    res.set(
+      "content-disposition",
+      `attachment; filename="${videoInfo.videoDetails.title + ".mp4"}"`
+    );
+    videoReadableStream.pipe(res);
+  } else {
+    res.send("Id is not available");
+  }
 });
 
 app.get("/api/audio", async (req, res) => {
   const { id } = req.query;
-  const url = "https://www.youtube.com/watch?v=" + id;
-  const videoReadableStream = await ytdl(url, {
-    filter: "audioonly",
-  });
-  res.set(
-    "content-disposition",
-    `attachment; filename="${
-      Math.floor(Math.random() * 999).toString() + ".mp4"
-    }"`
-  );
-  videoReadableStream.pipe(res);
+  if (id) {
+    const videoInfo = await ytdl.getInfo(
+      "https://www.youtube.com/watch?v=" + id
+    );
+    const url = "https://www.youtube.com/watch?v=" + id;
+    const videoReadableStream = await ytdl(url, {
+      filter: "audioonly",
+    });
+    res.set(
+      "content-disposition",
+      `attachment; filename="${videoInfo.videoDetails.title + ".mp3"}"`
+    );
+    videoReadableStream.pipe(res);
+  } else {
+    res.send("Id is not available");
+  }
 });
 
 app.listen(3000, () => {
-  console.log("listening");
+  console.log("Listening");
 });
