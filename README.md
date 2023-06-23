@@ -6,7 +6,7 @@ You can download any video on youtube as .mp3 or .mp4 file
 
 You can use in HTML:
 ```HTML
-<a href="http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}>Link</a>
+<a href="http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}">Link</a>
 ```
 Or you can use fetch in JavaScript:
 ```JavaScript
