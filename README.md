@@ -14,9 +14,7 @@ fetch("http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}", {
     method: "GET",
   })
   .then((res) => res.blob())
-  .then(function(file){
-    console.log(file)
-  })
+  .then(file => console.log(file))
 ```
   
    
