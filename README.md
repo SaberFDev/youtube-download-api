@@ -1,6 +1,6 @@
 # youtube-download-api
 
-You can download ny video on youtube as .mp3 or .mp4 file
+You can download any video on youtube as .mp3 or .mp4 file
 
 # Usage
 
@@ -15,6 +15,7 @@ fetch("http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}", {
   })
   .then((res) => res.blob())
   .then(file => console.log(file))
+  .catch(err => console.log(err));
 ```
   
    
