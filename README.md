@@ -9,7 +9,7 @@ You can use in HTML:
 <a href="http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}>Link</a>
 
 Or you can use fetch in JavaScript:
-
+```JavaScript
 fetch("http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}", {
     method: "GET",
   })
@@ -17,5 +17,6 @@ fetch("http://localhost:3000/api/{audio OR video}?id={VIDEO-ID}", {
   .then(function(file){
     console.log(file)
   })
+```
   
    
