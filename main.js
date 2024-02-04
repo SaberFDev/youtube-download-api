@@ -26,7 +26,9 @@ app.get("/api/video", async (req, res) => {
     });
     res.set(
       "content-disposition",
-      `attachment; filename="${videoInfo.videoDetails.title + ".mp4"}"`
+      `attachment; filename="${
+        encodeURI(videoInfo.videoDetails.title) + ".mp4"
+      }"`
     );
     videoReadableStream.pipe(res);
   } else {
@@ -44,7 +46,7 @@ app.get("/api/audio", async (req, res) => {
     });
     res.set(
       "content-disposition",
-      `attachment; filename="${videoInfo.videoDetails.title + ".mp3"}"`
+      `attachment; filename="${ encodeURI(videoInfo.videoDetails.title) + ".mp3"}"`
     );
     videoReadableStream.pipe(res);
   } else {
